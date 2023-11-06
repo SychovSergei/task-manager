@@ -16,9 +16,9 @@ import {MatCardModule} from "@angular/material/card";
     AppRoutingModule,
     BrowserAnimationsModule,
 
-    // MatCardModule,
+    MatCardModule,
 
-    // TaskListModule,
+    TaskListModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -6,6 +6,7 @@ import {SubjectManageTaskService} from "../services/subject-manage-task.service"
 import {TaskConfirmDialogComponent} from "./task-confirm-dialog/task-confirm-dialog.component";
 import {Sort} from "@angular/material/sort";
 import {sortArray} from "../utils/utils";
+import {BehaviorSubject, debounceTime} from "rxjs";
 
 @Component({
   selector: 'app-task-list',
@@ -19,7 +20,7 @@ export class TaskListComponent implements OnInit {
   private filterItemsList: string[] = ['title', 'description'];
   public dataSource: ITaskItem[] = [];
   public dataSourceFiltered: ITaskItem[] = [];
-  public searchVal: string = ''
+  private searchValueSubject: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
   constructor(public dialog: MatDialog,
               private mockManageTaskService: SubjectManageTaskService) {
@@ -30,7 +31,10 @@ export class TaskListComponent implements OnInit {
       .subscribe((response) => {
         this.dataSource = response;
         this.dataSourceFiltered = this.filterData('',this.dataSource);
-      })
+      });
+    this.searchValueSubject.pipe(debounceTime(500)).subscribe((value) => {
+      this.dataSourceFiltered = this.filterData(value, this.dataSource);
+    })
   }
 
   public createTask() {
@@ -104,7 +108,6 @@ export class TaskListComponent implements OnInit {
   }
 
   search(value: Event) {
-    this.searchVal = (value.target as HTMLInputElement).value.toUpperCase();
-    this.dataSourceFiltered = this.filterData(this.searchVal, this.dataSource);
+    this.searchValueSubject.next((value.target as HTMLInputElement).value.toUpperCase());
   }
 }

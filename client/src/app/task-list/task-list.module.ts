@@ -5,33 +5,36 @@ import {MatTableModule} from "@angular/material/table";
 import {MatButtonModule} from "@angular/material/button";
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import {FormsModule} from "@angular/forms";
-import {ManageTaskService} from "../services/manage-task.service";
-import {MockManageTaskService} from "../services/mock-manage-task.service";
+import {SubjectManageTaskService} from "../services/subject-manage-task.service";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import {TaskManageDialogModule} from "./task-manage-dialog/task-manage-dialog.module";
+import {TaskConfirmDialogModule} from "./task-confirm-dialog/task-confirm-dialog.module";
+import {MatIconModule} from "@angular/material/icon";
+import {MatTooltipModule} from "@angular/material/tooltip";
 
 
 
 @NgModule({
-    declarations: [
-        TaskListComponent
-    ],
-    exports: [
-        TaskListComponent
-    ],
+  declarations: [
+      TaskListComponent,
+  ],
+  exports: [
+      TaskListComponent
+  ],
   imports: [
     CommonModule,
     FormsModule,
 
+    TaskManageDialogModule,
+    TaskConfirmDialogModule,
+
     MatTableModule,
     MatButtonModule,
     MatCheckboxModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatIconModule,
+    MatTooltipModule,
   ],
-  providers: [
-    {
-      provide: ManageTaskService,
-      useClass: MockManageTaskService
-    }
-  ]
+  providers: [SubjectManageTaskService]
 })
 export class TaskListModule { }

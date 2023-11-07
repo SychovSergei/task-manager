@@ -1,38 +1,85 @@
-import {Component, OnInit} from '@angular/core';
-import {ManageTaskService} from "../services/manage-task.service";
-import {ITaskItem} from "../interfaces/manage-task.interface";
-
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {ETaskOperation, ITaskOperationData, ITaskItem} from "../interfaces/manage-task.interface";
+import {MatDialog} from "@angular/material/dialog";
+import {TaskManageDialogComponent} from "./task-manage-dialog/task-manage-dialog.component";
+import {SubjectManageTaskService} from "../services/subject-manage-task.service";
+import {TaskConfirmDialogComponent} from "./task-confirm-dialog/task-confirm-dialog.component";
 
 @Component({
   selector: 'app-task-list',
   templateUrl: './task-list.component.html',
   styleUrls: ['./task-list.component.scss'],
+  providers: [SubjectManageTaskService]
 })
 export class TaskListComponent implements OnInit {
 
-  public displayedColumns: string[] = ['id', 'action', 'title', 'description'];
+  public displayedColumns: string[] = ['complete', 'title', 'description', 'action'];
   public dataSource: ITaskItem[] = [];
 
-  constructor(private manageTaskService: ManageTaskService) {
+  constructor(public dialog: MatDialog,
+              private changeDetectorRef: ChangeDetectorRef,
+              private mockManageTaskService: SubjectManageTaskService) {
   }
 
   ngOnInit() {
-    this.manageTaskService.getTasksList()
+    this.mockManageTaskService.getTasksList()
       .subscribe((response) => {
-        console.table(response);
         this.dataSource = response;
+        this.changeDetectorRef.detectChanges();
       })
   }
 
-  public editTask(element: ITaskItem) {
-    console.log(element);
+  public createTask() {
+    this.openCreateNewTaskDialog(ETaskOperation.Create);
   }
 
-  public deleteTask(element: ITaskItem) {
-    console.log(element);
+  public editTask(element: ITaskItem) {
+    this.openCreateNewTaskDialog(ETaskOperation.Edit, element);
   }
 
   public updateTask(element: ITaskItem) {
-    console.log(this.dataSource);
+    this.mockManageTaskService.editTask(element.id, element)
+  }
+
+  public deleteTask(element: ITaskItem) {
+    const dialogRef = this.dialog.open(
+      TaskConfirmDialogComponent,
+      {
+        maxWidth: '600px',
+        data: {data: {...element}, operation: ETaskOperation.Delete},
+      },
+    );
+
+    dialogRef.afterClosed().subscribe((result: ITaskOperationData) => {
+      if (result) {
+        const {operation, data} = result;
+        if (operation === ETaskOperation.Delete) {
+          this.mockManageTaskService.deleteTask(data.id);
+        }
+      }
+    });
+  }
+
+  private openCreateNewTaskDialog(operation: ETaskOperation = ETaskOperation.Create, data: ITaskItem | undefined = {id: '', title: '', description: '', completed: false}) {
+    const dialogRef = this.dialog.open(
+      TaskManageDialogComponent,
+      {
+        minHeight: '300px',
+        maxWidth: '600px',
+        data: {data: {...data}, operation},
+      },
+    );
+
+    dialogRef.afterClosed().subscribe((result: ITaskOperationData) => {
+      if (result) {
+        const {operation, data} = result;
+        if (operation === ETaskOperation.Create) {
+          this.mockManageTaskService.createTask(data);
+        }
+        if (operation === ETaskOperation.Edit) {
+          this.mockManageTaskService.editTask(data.id, data);
+        }
+      }
+    });
   }
 }

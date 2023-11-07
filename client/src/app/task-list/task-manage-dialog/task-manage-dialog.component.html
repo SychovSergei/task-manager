@@ -1,0 +1,40 @@
+<h2 mat-dialog-title>{{isCreate ? 'Create new task' : isEdit ? 'Edit task' : ''}}</h2>
+<mat-dialog-content class="mat-typography">
+
+  <form #taskForm="ngForm" (ngSubmit)="onSubmit(taskForm)">
+    <div class="row">
+      <mat-form-field>
+        <mat-label>Title</mat-label>
+        <input matInput name="title"
+               #title="ngModel"
+               required
+               [(ngModel)]="taskFormData.title">
+        <mat-error *ngIf="title.invalid && title?.touched">
+          <span *ngIf="title?.errors?.['required']">This field is required.</span>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Description</mat-label>
+        <textarea matInput name="description"
+                  #description="ngModel"
+                  required
+                  [(ngModel)]="taskFormData.description"></textarea>
+        <mat-error *ngIf="description.invalid && description.touched">
+          <span *ngIf="description?.errors?.['required']">This field is required.</span>
+        </mat-error>
+
+      </mat-form-field>
+    </div>
+  </form>
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-stroked-button type="button"
+          mat-dialog-close>Cancel</button>
+  <button mat-raised-button type="submit"
+          color="primary" (click)="onSubmit(taskForm)"
+          [disabled]="isSubmit || taskForm.form.invalid"
+          cdkFocusInitial>{{isCreate ? 'Create' : isEdit ? 'Edit' : ''}}</button>
+</mat-dialog-actions>

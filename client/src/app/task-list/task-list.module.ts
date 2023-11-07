@@ -13,6 +13,7 @@ import {MatIconModule} from "@angular/material/icon";
 import {MatTooltipModule} from "@angular/material/tooltip";
 import {MatSortModule} from "@angular/material/sort";
 import {MatInputModule} from "@angular/material/input";
+import {MatPaginatorModule} from "@angular/material/paginator";
 
 
 
@@ -38,6 +39,7 @@ import {MatInputModule} from "@angular/material/input";
     MatTooltipModule,
     MatSortModule,
     MatInputModule,
+    MatPaginatorModule,
   ],
   providers: [SubjectManageTaskService]
 })

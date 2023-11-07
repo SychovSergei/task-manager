@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {ETaskOperation, ITaskOperationData, ITaskItem} from "../interfaces/manage-task.interface";
 import {MatDialog} from "@angular/material/dialog";
 import {TaskManageDialogComponent} from "./task-manage-dialog/task-manage-dialog.component";
@@ -7,6 +7,8 @@ import {TaskConfirmDialogComponent} from "./task-confirm-dialog/task-confirm-dia
 import {Sort} from "@angular/material/sort";
 import {sortArray} from "../utils/utils";
 import {BehaviorSubject, debounceTime} from "rxjs";
+import {MatPaginator} from "@angular/material/paginator";
+import {MatTableDataSource} from "@angular/material/table";
 
 @Component({
   selector: 'app-task-list',
@@ -14,27 +16,38 @@ import {BehaviorSubject, debounceTime} from "rxjs";
   styleUrls: ['./task-list.component.scss'],
   providers: [SubjectManageTaskService]
 })
-export class TaskListComponent implements OnInit {
+export class TaskListComponent implements OnInit, AfterViewInit {
 
   public displayedColumns: string[] = ['complete', 'title', 'description', 'dateCreate', 'action'];
   private filterItemsList: string[] = ['title', 'description'];
+  // public dataSource: ITaskItem[] = [];
   public dataSource: ITaskItem[] = [];
-  public dataSourceFiltered: ITaskItem[] = [];
+  public dataSourceFiltered!: MatTableDataSource<ITaskItem>;
   private searchValueSubject: BehaviorSubject<string> = new BehaviorSubject<string>('');
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(public dialog: MatDialog,
               private mockManageTaskService: SubjectManageTaskService) {
   }
 
   ngOnInit() {
+    this.dataSourceFiltered = new MatTableDataSource<ITaskItem>();
     this.mockManageTaskService.getTasksList()
       .subscribe((response) => {
         this.dataSource = response;
-        this.dataSourceFiltered = this.filterData('',this.dataSource);
+        this.dataSourceFiltered.data = this.filterData(this.searchValueSubject.getValue(), response);
       });
     this.searchValueSubject.pipe(debounceTime(500)).subscribe((value) => {
-      this.dataSourceFiltered = this.filterData(value, this.dataSource);
+      this.dataSourceFiltered.data = this.filterData(value, this.dataSource);
     })
+  }
+
+  ngAfterViewInit() {
+    this.dataSourceFiltered.paginator = this.paginator;
+    this.paginator.page.subscribe((page) => {
+      this.announcePageChange();
+    });
   }
 
   public createTask() {
@@ -92,19 +105,26 @@ export class TaskListComponent implements OnInit {
   }
 
   announceSortChange(event: Sort) {
-    this.dataSourceFiltered = [...sortArray(this.dataSource, event.active, event.direction)];
+    this.dataSourceFiltered = new MatTableDataSource<ITaskItem>([...sortArray(this.dataSource, event.active, event.direction)]);
+  }
+
+  announcePageChange() {
+    this.dataSourceFiltered.data = this.filterData(this.searchValueSubject.getValue(), this.dataSource);//, this.paginator.pageIndex, this.paginator.pageSize
   }
 
   public filterData(value: string, data: ITaskItem[]): ITaskItem[] {
+    let filteredData = [];
     if (value.length > 0) {
-      return data.filter((item) => {
+      filteredData = data.filter((item) => {
         return this.filterItemsList.some((val) => {
           return item[val as keyof ITaskItem].toString().toUpperCase().includes(value);
         });
       });
     } else {
-      return data;
+      filteredData = data;
     }
+
+    return filteredData;
   }
 
   search(value: Event) {

@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ETaskOperation, ITaskOperationData, ITaskItem} from "../interfaces/manage-task.interface";
 import {MatDialog} from "@angular/material/dialog";
 import {TaskManageDialogComponent} from "./task-manage-dialog/task-manage-dialog.component";
@@ -15,7 +15,7 @@ import {sortArray} from "../utils/utils";
 })
 export class TaskListComponent implements OnInit {
 
-  public displayedColumns: string[] = ['complete', 'title', 'description', 'action'];
+  public displayedColumns: string[] = ['complete', 'title', 'description', 'dateCreate', 'action'];
   public dataSource: ITaskItem[] = [];
 
   constructor(public dialog: MatDialog,

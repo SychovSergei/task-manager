@@ -59,6 +59,11 @@
       <td mat-cell *matCellDef="let element"><span [class.text-decoration-line-through]="element.completed"> {{element.description}} </span></td>
     </ng-container>
 
+    <ng-container matColumnDef="dateCreate">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Create Date</th>
+      <td mat-cell *matCellDef="let element"><span [class.text-decoration-line-through]="element.completed"> {{element.dateCreate | date: 'short' }} </span></td>
+    </ng-container>
+
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>

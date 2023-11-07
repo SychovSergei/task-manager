@@ -30,3 +30,27 @@ table {
 .mat-column-action {
   width: 130px;
 }
+.header-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.header-input-block {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.header-button-block {
+  margin-left: 1rem;
+  display: inline-flex;
+  flex-direction: row;
+  justify-content: end;
+  align-items: start;
+
+  .header-button + .header-button {
+    margin-left: 10px;
+  }
+
+}

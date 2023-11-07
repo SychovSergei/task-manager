@@ -16,7 +16,10 @@ import {sortArray} from "../utils/utils";
 export class TaskListComponent implements OnInit {
 
   public displayedColumns: string[] = ['complete', 'title', 'description', 'dateCreate', 'action'];
+  private filterItemsList: string[] = ['title', 'description'];
   public dataSource: ITaskItem[] = [];
+  public dataSourceFiltered: ITaskItem[] = [];
+  public searchVal: string = ''
 
   constructor(public dialog: MatDialog,
               private mockManageTaskService: SubjectManageTaskService) {
@@ -26,6 +29,7 @@ export class TaskListComponent implements OnInit {
     this.mockManageTaskService.getTasksList()
       .subscribe((response) => {
         this.dataSource = response;
+        this.dataSourceFiltered = this.filterData('',this.dataSource);
       })
   }
 
@@ -84,6 +88,23 @@ export class TaskListComponent implements OnInit {
   }
 
   announceSortChange(event: Sort) {
-    this.dataSource = [...sortArray(this.dataSource, event.active, event.direction)];
+    this.dataSourceFiltered = [...sortArray(this.dataSource, event.active, event.direction)];
+  }
+
+  public filterData(value: string, data: ITaskItem[]): ITaskItem[] {
+    if (value.length > 0) {
+      return data.filter((item) => {
+        return this.filterItemsList.some((val) => {
+          return item[val as keyof ITaskItem].toString().toUpperCase().includes(value);
+        });
+      });
+    } else {
+      return data;
+    }
+  }
+
+  search(value: Event) {
+    this.searchVal = (value.target as HTMLInputElement).value.toUpperCase();
+    this.dataSourceFiltered = this.filterData(this.searchVal, this.dataSource);
   }
 }

@@ -1,12 +1,21 @@
 <ng-container *ngIf="dataSource.length > 0; else noDataTemplate">
 
-  <div class="demo-button-container">
-    <button mat-raised-button (click)="createTask()" class="demo-button">
-      Create new task
-    </button>
+  <div class="header-container">
+    <div class="header-input-block">
+      <mat-form-field appearance="outline">
+        <mat-label>Outline form field</mat-label>
+        <input matInput placeholder="Placeholder" (input)="search($event)">
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+    </div>
+    <div class="header-button-block">
+      <button mat-raised-button color="primary" (click)="createTask()" class="header-button">
+        Create
+      </button>
+    </div>
   </div>
 
-  <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)">
+  <table mat-table [dataSource]="dataSourceFiltered" matSort (matSortChange)="announceSortChange($event)">
 
     <ng-container matColumnDef="complete">
       <th mat-header-cell *matHeaderCellDef>Done</th>

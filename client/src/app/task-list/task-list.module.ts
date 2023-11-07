@@ -12,6 +12,7 @@ import {TaskConfirmDialogModule} from "./task-confirm-dialog/task-confirm-dialog
 import {MatIconModule} from "@angular/material/icon";
 import {MatTooltipModule} from "@angular/material/tooltip";
 import {MatSortModule} from "@angular/material/sort";
+import {MatInputModule} from "@angular/material/input";
 
 
 
@@ -36,6 +37,7 @@ import {MatSortModule} from "@angular/material/sort";
     MatIconModule,
     MatTooltipModule,
     MatSortModule,
+    MatInputModule,
   ],
   providers: [SubjectManageTaskService]
 })

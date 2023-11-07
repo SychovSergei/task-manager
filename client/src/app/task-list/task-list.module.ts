@@ -11,6 +11,7 @@ import {TaskManageDialogModule} from "./task-manage-dialog/task-manage-dialog.mo
 import {TaskConfirmDialogModule} from "./task-confirm-dialog/task-confirm-dialog.module";
 import {MatIconModule} from "@angular/material/icon";
 import {MatTooltipModule} from "@angular/material/tooltip";
+import {MatSortModule} from "@angular/material/sort";
 
 
 
@@ -34,6 +35,7 @@ import {MatTooltipModule} from "@angular/material/tooltip";
     MatProgressSpinnerModule,
     MatIconModule,
     MatTooltipModule,
+    MatSortModule,
   ],
   providers: [SubjectManageTaskService]
 })

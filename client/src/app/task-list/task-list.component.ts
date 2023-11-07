@@ -4,6 +4,8 @@ import {MatDialog} from "@angular/material/dialog";
 import {TaskManageDialogComponent} from "./task-manage-dialog/task-manage-dialog.component";
 import {SubjectManageTaskService} from "../services/subject-manage-task.service";
 import {TaskConfirmDialogComponent} from "./task-confirm-dialog/task-confirm-dialog.component";
+import {Sort} from "@angular/material/sort";
+import {sortArray} from "../utils/utils";
 
 @Component({
   selector: 'app-task-list',
@@ -17,7 +19,6 @@ export class TaskListComponent implements OnInit {
   public dataSource: ITaskItem[] = [];
 
   constructor(public dialog: MatDialog,
-              private changeDetectorRef: ChangeDetectorRef,
               private mockManageTaskService: SubjectManageTaskService) {
   }
 
@@ -25,7 +26,6 @@ export class TaskListComponent implements OnInit {
     this.mockManageTaskService.getTasksList()
       .subscribe((response) => {
         this.dataSource = response;
-        this.changeDetectorRef.detectChanges();
       })
   }
 
@@ -81,5 +81,9 @@ export class TaskListComponent implements OnInit {
         }
       }
     });
+  }
+
+  announceSortChange(event: Sort) {
+    this.dataSource = [...sortArray(this.dataSource, event.active, event.direction)];
   }
 }

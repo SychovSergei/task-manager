@@ -1,0 +1,14 @@
+<h2 mat-dialog-title>Confirm delete item</h2>
+<mat-dialog-content class="mat-typography">
+
+  <p>Do you really want to delete the task {{ data.data.title }}?</p>
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-stroked-button type="button"
+          mat-dialog-close>Cancel</button>
+  <button mat-raised-button type="submit"
+          color="primary" (click)="confirmDelete()"
+          cdkFocusInitial>Delete</button>
+</mat-dialog-actions>

@@ -10,7 +10,7 @@ import {ETaskOperation, ITaskOperationData, ITaskItem} from "../../interfaces/ma
 })
 export class TaskManageDialogComponent {
 
-  public taskFormData: ITaskItem = {id: '', title: '', description: '', completed: false};
+  public taskFormData: ITaskItem = {id: '', title: '', description: '', completed: false, dateCreate: 0};
 
   result: ITaskOperationData = {
     data: this.taskFormData,
@@ -49,6 +49,7 @@ export class TaskManageDialogComponent {
           title: taskForm.form.controls['title'].value,
           description: taskForm.form.controls['description'].value,
           completed: this.taskFormData.completed,
+          dateCreate: new Date().getTime()
         },
         operation: this.operation
       }

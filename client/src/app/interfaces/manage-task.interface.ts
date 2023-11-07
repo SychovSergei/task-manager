@@ -10,6 +10,7 @@ export interface ITaskItem {
   title: string;
   description: string;
   completed: boolean;
+  dateCreate: number;
 }
 
 export interface ITaskOperationData {

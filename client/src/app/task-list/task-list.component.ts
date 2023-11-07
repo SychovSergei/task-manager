@@ -60,7 +60,7 @@ export class TaskListComponent implements OnInit {
     });
   }
 
-  private openCreateNewTaskDialog(operation: ETaskOperation = ETaskOperation.Create, data: ITaskItem | undefined = {id: '', title: '', description: '', completed: false}) {
+  private openCreateNewTaskDialog(operation: ETaskOperation = ETaskOperation.Create, data: ITaskItem | undefined = {id: '', title: '', description: '', completed: false, dateCreate: new Date().getTime()}) {
     const dialogRef = this.dialog.open(
       TaskManageDialogComponent,
       {

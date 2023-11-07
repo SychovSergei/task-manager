@@ -8,8 +8,8 @@ import {TaskService} from "./http-manage-task.service";
 export class SubjectManageTaskService extends TaskService {
 
   mockTasksSubject: BehaviorSubject<ITaskItem[]> = new BehaviorSubject<ITaskItem[]>( [
-    {id: '1', completed: true, title: 'Title 1', description: 'Description 1'},
-    {id: '2', completed: false, title: 'Title 2', description: 'Description 2'},
+    {id: '1', completed: true, title: 'Title 1', description: 'Description 1', dateCreate: 1569033022000},
+    {id: '2', completed: false, title: 'Title 2', description: 'Description 2', dateCreate: 1569035022000},
   ]);
 
   constructor() {
@@ -22,7 +22,7 @@ export class SubjectManageTaskService extends TaskService {
 
   public createTask(data: ITaskItem): Observable<ITaskItem> {
     const id: string = Utils.generateId(10);
-    const newData = {...data, id: id} as ITaskItem;
+    const newData = {...data, id: id, dateCreate: new Date().getTime()} as ITaskItem;
     this.mockTasksSubject.next([...this.mockTasksSubject.getValue(), newData]);
 
     return of(newData);

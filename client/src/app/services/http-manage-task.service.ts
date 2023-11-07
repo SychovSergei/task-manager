@@ -17,7 +17,7 @@ export abstract class TaskService {
 
 }
 @Injectable()
-export class ManageTaskService extends TaskService {
+export class HttpManageTaskService extends TaskService {
 
   private getTaskListUrl = 'realLink';
   private createTaskUrl = 'createTaskUrl';

@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { ManageTaskService } from './manage-task.service';
+import { HttpManageTaskService } from './http-manage-task.service';
 
 describe('ManageTaskService', () => {
-  let service: ManageTaskService;
+  let service: HttpManageTaskService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(ManageTaskService);
+    service = TestBed.inject(HttpManageTaskService);
   });
 
   it('should be created', () => {

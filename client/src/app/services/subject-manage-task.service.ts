@@ -9,110 +9,180 @@ export class SubjectManageTaskService extends TaskService {
 
   mockTasksSubject: BehaviorSubject<ITaskItem[]> = new BehaviorSubject<ITaskItem[]>( [
     {
-      id: '1',
-      title: 'Завершить проект Angular',
-      description: 'Закончить разработку проекта по управлению задачами на Angular.',
+      id: "1",
+      title: "Complete Angular Project",
+      description: "Finish the Angular task manager project by the end of the week.",
       completed: false,
-      dateCreate: Date.now() - 86400000 // Вчера
+      dateCreate: 1665282000, // Timestamp for a specific date
     },
     {
-      id: '2',
-      title: 'Подготовить презентацию',
-      description: 'Подготовить презентацию для конференции.',
-      completed: false,
-      dateCreate: Date.now() - 172800000 // Позавчера
-    },
-    {
-      id: '3',
-      title: 'Сделать покупки',
-      description: 'Список продуктов для покупок в магазине.',
+      id: "2",
+      title: "Meeting with Client",
+      description: "Discuss project requirements with the client at 2 PM on Tuesday.",
       completed: true,
-      dateCreate: Date.now() - 259200000 // Три дня назад
+      dateCreate: 1665182000,
     },
     {
-      id: '4',
-      title: 'Прочитать новую книгу',
-      description: 'Новая книга по разработке на Angular.',
+      id: "3",
+      title: "Prepare Presentation",
+      description: "Create a presentation for the team meeting next Monday.",
       completed: false,
-      dateCreate: Date.now() - 345600000 // Четыре дня назад
+      dateCreate: 1665082000,
     },
     {
-      id: '5',
-      title: 'Подготовить ужин',
-      description: 'Рецепт для ужина сегодня вечером.',
+      id: "4",
+      title: "Code Review",
+      description: "Review code changes made by the team members this week.",
+      completed: false,
+      dateCreate: 1664982000,
+    },
+    {
+      id: "5",
+      title: "Exercise",
+      description: "Go to the gym and work out for at least an hour.",
       completed: true,
-      dateCreate: Date.now() - 432000000 // Пять дней назад
+      dateCreate: 1664882000,
     },
     {
-      id: '6',
-      title: 'Подготовить отчет',
-      description: 'Подготовить месячный отчет для руководства.',
+      id: "6",
+      title: "Read a Book",
+      description: "Spend some time reading a new book in the evening.",
       completed: false,
-      dateCreate: Date.now() - 518400000 // Шесть дней назад
+      dateCreate: 1664782000,
     },
     {
-      id: '7',
-      title: 'Занятия спортом',
-      description: 'Пойти на тренировку в спортзал.',
+      id: "7",
+      title: "Shopping",
+      description: "Buy groceries and household items from the store.",
+      completed: false,
+      dateCreate: 1664682000,
+    },
+    {
+      id: "8",
+      title: "Walk the Dog",
+      description: "Take the dog for a walk in the park in the evening.",
+      completed: false,
+      dateCreate: 1664582000,
+    },
+    {
+      id: "9",
+      title: "Study for Exam",
+      description: "Prepare for the upcoming mid-term exam in mathematics.",
+      completed: false,
+      dateCreate: 1664482000,
+    },
+    {
+      id: "10",
+      title: "Write a Blog Post",
+      description: "Create a blog post about web development trends.",
+      completed: false,
+      dateCreate: 1664382000,
+    },
+    {
+      id: "11",
+      title: "Plan Weekend Trip",
+      description: "Plan a weekend getaway to a nearby resort.",
+      completed: false,
+      dateCreate: 1664282000,
+    },
+    {
+      id: "12",
+      title: "Call Mom",
+      description: "Call your mom and catch up on family news.",
       completed: true,
-      dateCreate: Date.now() - 604800000 // Одна неделя назад
+      dateCreate: 1664182000,
     },
     {
-      id: '8',
-      title: 'Подготовить подарок',
-      description: 'Подготовить подарок для друга на день рождения.',
+      id: "13",
+      title: "Cook Dinner",
+      description: "Prepare a delicious dinner for yourself and your family.",
       completed: false,
-      dateCreate: Date.now() - 691200000 // Восемь дней назад
+      dateCreate: 1664082000,
     },
     {
-      id: '9',
-      title: 'Изучить новый фреймворк',
-      description: 'Изучить новый JavaScript фреймворк.',
+      id: "14",
+      title: "Review Project Proposal",
+      description: "Review the project proposal for the upcoming client meeting.",
       completed: false,
-      dateCreate: Date.now() - 777600000 // Девять дней назад
+      dateCreate: 1663982000,
     },
     {
-      id: '10',
-      title: 'Путешествие в выходные',
-      description: 'План путешествия на ближайшие выходные.',
+      id: "15",
+      title: "Clean the Garage",
+      description: "Organize and clean the garage on Saturday morning.",
+      completed: false,
+      dateCreate: 1663882000,
+    },
+    {
+      id: "16",
+      title: "Learn New Programming Language",
+      description: "Start learning a new programming language like Rust or Kotlin.",
+      completed: false,
+      dateCreate: 1663782000,
+    },
+    {
+      id: "17",
+      title: "Write Thank You Cards",
+      description: "Express your gratitude by writing thank you cards for friends and family.",
+      completed: false,
+      dateCreate: 1663682000,
+    },
+    {
+      id: "18",
+      title: "Volunteer at Local Shelter",
+      description: "Spend some time volunteering at a local animal shelter on the weekend.",
       completed: true,
-      dateCreate: Date.now() - 864000000 // Десять дней назад
+      dateCreate: 1663582000,
     },
     {
-      id: '11',
-      title: 'Подготовить отчет',
-      description: 'Отчет о прошедшей неделе работы.',
+      id: "19",
+      title: "Start a New Book",
+      description: "Begin reading a new book from your favorite author.",
       completed: false,
-      dateCreate: Date.now() - 518400000 // Шесть дней назад
+      dateCreate: 1663482000,
     },
     {
-      id: '12',
-      title: 'Планирование отпуска',
-      description: 'Подготовка к отпуску на следующей неделе.',
+      id: "20",
+      title: "Fix Leaky Faucet",
+      description: "Call a plumber to fix the leaky faucet in the kitchen.",
       completed: false,
-      dateCreate: Date.now() - 604800000 // Одна неделя назад
+      dateCreate: 1663382000,
     },
     {
-      id: '13',
-      title: 'Убраться в гараже',
-      description: 'Очистить гараж от старых вещей.',
+      id: "21",
+      title: "Renew Gym Membership",
+      description: "Make sure your gym membership is up to date for the next month.",
       completed: true,
-      dateCreate: Date.now() - 691200000 // Две недели назад
+      dateCreate: 1663282000,
     },
     {
-      id: '14',
-      title: 'Сходить в спортзал',
-      description: 'Тренировка в спортзале вечером.',
+      id: "22",
+      title: "Update Resume",
+      description: "Update your resume to include your latest work experiences and skills.",
       completed: false,
-      dateCreate: Date.now() - 777600000 // Три недели назад
+      dateCreate: 1663182000,
     },
     {
-      id: '15',
-      title: 'Создать блог по программированию',
-      description: 'Начать писать статьи о программировании.',
+      id: "23",
+      title: "Bake a Cake",
+      description: "Bake a homemade cake for a friend's birthday celebration.",
       completed: false,
-      dateCreate: Date.now() - 864000000 // Месяц назад
-    }
+      dateCreate: 1663082000,
+    },
+    {
+      id: "24",
+      title: "Visit the Art Museum",
+      description: "Plan a visit to the local art museum to appreciate some fine art.",
+      completed: false,
+      dateCreate: 1662982000,
+    },
+    {
+      id: "25",
+      title: "Learn to Play Guitar",
+      description: "Start taking guitar lessons to learn how to play your favorite songs.",
+      completed: false,
+      dateCreate: 1662882000,
+    },
   ]);
 
   constructor() {

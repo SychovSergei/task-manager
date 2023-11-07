@@ -1,5 +1,10 @@
-import {Observable, of} from "rxjs";
-
+export enum ETaskOperation {
+  Create = 'create',
+  Edit = 'edit',
+  Update = 'update',
+  Delete = 'update',
+  Default = 'default',
+}
 export interface ITaskItem {
   id: string,
   title: string;
@@ -7,8 +12,7 @@ export interface ITaskItem {
   completed: boolean;
 }
 
-export interface IManageTaskInterface {
-
-  getTasksList(): Observable<ITaskItem[]>;
-
+export interface ITaskOperationData {
+  data: ITaskItem;
+  operation: ETaskOperation;
 }

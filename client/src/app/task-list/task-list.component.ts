@@ -105,7 +105,7 @@ export class TaskListComponent implements OnInit, AfterViewInit {
   }
 
   announceSortChange(event: Sort) {
-    this.dataSourceFiltered = new MatTableDataSource<ITaskItem>([...sortArray(this.dataSource, event.active, event.direction)]);
+    this.dataSourceFiltered.data = [...sortArray(this.dataSource, event.active, event.direction)];
   }
 
   announcePageChange() {

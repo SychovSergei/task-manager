@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {ITaskItem} from "../interfaces/manage-task.interface";
 import {BehaviorSubject, Observable, of} from "rxjs";
 import {Utils} from "../utils/utils";
-import {TaskService} from "./manage-task.service";
+import {TaskService} from "./http-manage-task.service";
 
 @Injectable()
 export class SubjectManageTaskService extends TaskService {

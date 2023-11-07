@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { SubjectManageTaskService } from './mock-manage-task.service';
+import { SubjectManageTaskService } from './subject-manage-task.service';
 
 describe('SubjectManageTaskService', () => {
   let service: SubjectManageTaskService;

@@ -15,7 +15,7 @@ export interface ITaskItem {
   title: string;
   status: ETaskStatus;
   description: string;
-  completed: boolean;
+  selected: boolean;
   dateCreate: number;
 }
 

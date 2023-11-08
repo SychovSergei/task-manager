@@ -9,7 +9,7 @@ interface ITaskStatus {
 @Directive({
   selector: '[appStatusColor]'
 })
-export class StatusColorDirectve implements OnInit {
+export class StatusColorDirective implements OnInit {
 
   @Input('statusValue') statusVal!: string;
   @Input('statusBgColor') statusBgColor: string = '';

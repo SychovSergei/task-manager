@@ -19,13 +19,19 @@ import {CdkDragDrop} from "@angular/cdk/drag-drop";
 })
 export class TaskListComponent implements OnInit, AfterViewInit {
 
-  public displayedColumns: string[] = ['complete', 'status', 'title', 'description', 'dateCreate', 'action'];
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+
+  public displayedColumns: string[] = ['select', 'status', 'title', 'description', 'dateCreate', 'action'];
   private filterItemsList: string[] = ['status', 'title', 'description'];
   public dataSource: ITaskItem[] = [];
   public dataSourceFiltered!: MatTableDataSource<ITaskItem>;
   private searchValueSubject: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  public selectedTasks: Array<string> = [];
+
+  get isSelected(): boolean {
+    return this.selectedTasks.length > 0;
+  }
 
   constructor(public dialog: MatDialog,
               private mockManageTaskService: SubjectManageTaskService) {
@@ -58,8 +64,12 @@ export class TaskListComponent implements OnInit, AfterViewInit {
     this.openCreateNewTaskDialog(ETaskOperation.Edit, element);
   }
 
-  public updateTask(element: ITaskItem) {
-    this.mockManageTaskService.editTask(element.id, element)
+  public addToSelectedList(element: ITaskItem) {
+    if (!this.selectedTasks.includes(element.id)) {
+      this.selectedTasks.push(element.id);
+    } else {
+      this.selectedTasks = this.selectedTasks.filter((item) => item !== element.id);
+    }
   }
 
   public deleteTask(element: ITaskItem) {
@@ -81,7 +91,12 @@ export class TaskListComponent implements OnInit, AfterViewInit {
     });
   }
 
-  private openCreateNewTaskDialog(operation: ETaskOperation = ETaskOperation.Create, data: ITaskItem | undefined = {id: '', status: ETaskStatus.Pending, title: '', description: '', completed: false, dateCreate: new Date().getTime()}) {
+  public deleteTasks() {
+    this.mockManageTaskService.deleteTasks(this.selectedTasks);
+    this.selectedTasks.length = 0;
+  }
+
+  private openCreateNewTaskDialog(operation: ETaskOperation = ETaskOperation.Create, data: ITaskItem | undefined = {id: '', status: ETaskStatus.Pending, title: '', description: '', selected: false, dateCreate: new Date().getTime()}) {
     const dialogRef = this.dialog.open(
       TaskManageDialogComponent,
       {
@@ -132,10 +147,6 @@ export class TaskListComponent implements OnInit, AfterViewInit {
   }
 
   drop(event: CdkDragDrop<ITaskItem[]>) {
-    const arr = [...this.mockManageTaskService.mockTasksSubject.getValue()];
-    const prev = event.previousIndex;
-    const curr = event.currentIndex;
-    [{...arr[prev]}, {...arr[curr]}] = [{...arr[curr]}, {...arr[prev]}];
-    this.mockManageTaskService.mockTasksSubject.next(arr);
+    this.mockManageTaskService.updateTasks({prevInd: event.previousIndex, currInd: event.currentIndex});
   }
 }

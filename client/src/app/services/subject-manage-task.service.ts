@@ -232,7 +232,6 @@ export class SubjectManageTaskService extends TaskService {
     if (index >= 0) {
       updatedTasks[index] = task;
     }
-    console.log('task',task)
     this.mockTasksSubject.next([...updatedTasks]);
 
     return of(task);

@@ -31,9 +31,6 @@ export class StatusColorDirectve implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.el.nativeElement);
-    console.log(this.statusVal);
-    // background-color: beige; padding: 5px 10px; border: 1px solid red; border-radius: 10px;
     this.renderer.setStyle(this.el.nativeElement,
       'background-color',this.statusBgColor ? this.statusBgColor : this.bdColors[this.statusVal as keyof ITaskStatus]);
     this.renderer.setStyle(this.el.nativeElement,

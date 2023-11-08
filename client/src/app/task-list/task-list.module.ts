@@ -14,6 +14,7 @@ import {MatTooltipModule} from "@angular/material/tooltip";
 import {MatSortModule} from "@angular/material/sort";
 import {MatInputModule} from "@angular/material/input";
 import {MatPaginatorModule} from "@angular/material/paginator";
+import {DragDropModule} from "@angular/cdk/drag-drop";
 
 
 
@@ -22,9 +23,9 @@ import {MatPaginatorModule} from "@angular/material/paginator";
       TaskListComponent,
   ],
   exports: [
-      TaskListComponent
+    TaskListComponent
   ],
-  imports: [
+    imports: [
     CommonModule,
     FormsModule,
 
@@ -40,7 +41,8 @@ import {MatPaginatorModule} from "@angular/material/paginator";
     MatSortModule,
     MatInputModule,
     MatPaginatorModule,
-  ],
+      DragDropModule,
+    ],
   providers: [SubjectManageTaskService]
 })
 export class TaskListModule { }

@@ -9,6 +9,7 @@ import {sortArray} from "../utils/utils";
 import {BehaviorSubject, debounceTime} from "rxjs";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatTableDataSource} from "@angular/material/table";
+import {CdkDragDrop} from "@angular/cdk/drag-drop";
 
 @Component({
   selector: 'app-task-list',
@@ -129,5 +130,13 @@ export class TaskListComponent implements OnInit, AfterViewInit {
 
   search(value: Event) {
     this.searchValueSubject.next((value.target as HTMLInputElement).value.toUpperCase());
+  }
+
+  drop(event: CdkDragDrop<ITaskItem[]>) {
+    const arr = [...this.mockManageTaskService.mockTasksSubject.getValue()];
+    const prev = event.previousIndex;
+    const curr = event.currentIndex;
+    [{...arr[prev]}, {...arr[curr]}] = [{...arr[curr]}, {...arr[prev]}];
+    this.mockManageTaskService.mockTasksSubject.next(arr);
   }
 }

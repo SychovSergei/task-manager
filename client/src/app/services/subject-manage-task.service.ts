@@ -2,18 +2,18 @@ import { Injectable } from '@angular/core';
 import {ETaskStatus, ITaskItem} from "../interfaces/manage-task.interface";
 import {BehaviorSubject, Observable, of} from "rxjs";
 import {Utils} from "../utils/utils";
-import {TaskService} from "./http-manage-task.service";
+import {IDropIndexes, TaskService} from "./http-manage-task.service";
 
 @Injectable()
 export class SubjectManageTaskService extends TaskService {
 
-  mockTasksSubject: BehaviorSubject<ITaskItem[]> = new BehaviorSubject<ITaskItem[]>( [
+  private mockTasksSubject: BehaviorSubject<ITaskItem[]> = new BehaviorSubject<ITaskItem[]>( [
     {
       id: "1",
       status: ETaskStatus.Pending,
       title: "Complete Angular Project",
       description: "Finish the Angular task manager project by the end of the week.",
-      completed: false,
+      selected: false,
       dateCreate: 1665282000, // Timestamp for a specific date
     },
     {
@@ -21,7 +21,7 @@ export class SubjectManageTaskService extends TaskService {
       status: ETaskStatus.OnWork,
       title: "Meeting with Client",
       description: "Discuss project requirements with the client at 2 PM on Tuesday.",
-      completed: true,
+      selected: false,
       dateCreate: 1665182000,
     },
     {
@@ -29,7 +29,7 @@ export class SubjectManageTaskService extends TaskService {
       status: ETaskStatus.Done,
       title: "Prepare Presentation",
       description: "Create a presentation for the team meeting next Monday.",
-      completed: false,
+      selected: false,
       dateCreate: 1665082000,
     },
     {
@@ -37,7 +37,7 @@ export class SubjectManageTaskService extends TaskService {
       status: ETaskStatus.Pending,
       title: "Code Review",
       description: "Review code changes made by the team members this week.",
-      completed: false,
+      selected: false,
       dateCreate: 1664982000,
     },
     {
@@ -45,7 +45,7 @@ export class SubjectManageTaskService extends TaskService {
       status: ETaskStatus.Pending,
       title: "Exercise",
       description: "Go to the gym and work out for at least an hour.",
-      completed: true,
+      selected: false,
       dateCreate: 1664882000,
     },
     {
@@ -53,7 +53,7 @@ export class SubjectManageTaskService extends TaskService {
       status: ETaskStatus.Pending,
       title: "Read a Book",
       description: "Spend some time reading a new book in the evening.",
-      completed: false,
+      selected: false,
       dateCreate: 1664782000,
     },
     {
@@ -61,7 +61,7 @@ export class SubjectManageTaskService extends TaskService {
       status: ETaskStatus.Pending,
       title: "Shopping",
       description: "Buy groceries and household items from the store.",
-      completed: false,
+      selected: false,
       dateCreate: 1664682000,
     },
     {
@@ -69,7 +69,7 @@ export class SubjectManageTaskService extends TaskService {
       status: ETaskStatus.Pending,
       title: "Walk the Dog",
       description: "Take the dog for a walk in the park in the evening.",
-      completed: false,
+      selected: false,
       dateCreate: 1664582000,
     },
     {
@@ -77,7 +77,7 @@ export class SubjectManageTaskService extends TaskService {
       status: ETaskStatus.Pending,
       title: "Study for Exam",
       description: "Prepare for the upcoming mid-term exam in mathematics.",
-      completed: false,
+      selected: false,
       dateCreate: 1664482000,
     },
     {
@@ -85,7 +85,7 @@ export class SubjectManageTaskService extends TaskService {
       status: ETaskStatus.Pending,
       title: "Write a Blog Post",
       description: "Create a blog post about web development trends.",
-      completed: false,
+      selected: false,
       dateCreate: 1664382000,
     },
     {
@@ -93,7 +93,7 @@ export class SubjectManageTaskService extends TaskService {
       status: ETaskStatus.Pending,
       title: "Plan Weekend Trip",
       description: "Plan a weekend getaway to a nearby resort.",
-      completed: false,
+      selected: false,
       dateCreate: 1664282000,
     },
     {
@@ -101,7 +101,7 @@ export class SubjectManageTaskService extends TaskService {
       status: ETaskStatus.Pending,
       title: "Call Mom",
       description: "Call your mom and catch up on family news.",
-      completed: true,
+      selected: false,
       dateCreate: 1664182000,
     },
     {
@@ -109,7 +109,7 @@ export class SubjectManageTaskService extends TaskService {
       status: ETaskStatus.Pending,
       title: "Cook Dinner",
       description: "Prepare a delicious dinner for yourself and your family.",
-      completed: false,
+      selected: false,
       dateCreate: 1664082000,
     },
     {
@@ -117,7 +117,7 @@ export class SubjectManageTaskService extends TaskService {
       status: ETaskStatus.Pending,
       title: "Review Project Proposal",
       description: "Review the project proposal for the upcoming client meeting.",
-      completed: false,
+      selected: false,
       dateCreate: 1663982000,
     },
     {
@@ -125,7 +125,7 @@ export class SubjectManageTaskService extends TaskService {
       status: ETaskStatus.Pending,
       title: "Clean the Garage",
       description: "Organize and clean the garage on Saturday morning.",
-      completed: false,
+      selected: false,
       dateCreate: 1663882000,
     },
     {
@@ -133,7 +133,7 @@ export class SubjectManageTaskService extends TaskService {
       status: ETaskStatus.Pending,
       title: "Learn New Programming Language",
       description: "Start learning a new programming language like Rust or Kotlin.",
-      completed: false,
+      selected: false,
       dateCreate: 1663782000,
     },
     {
@@ -141,7 +141,7 @@ export class SubjectManageTaskService extends TaskService {
       status: ETaskStatus.Pending,
       title: "Write Thank You Cards",
       description: "Express your gratitude by writing thank you cards for friends and family.",
-      completed: false,
+      selected: false,
       dateCreate: 1663682000,
     },
     {
@@ -149,7 +149,7 @@ export class SubjectManageTaskService extends TaskService {
       status: ETaskStatus.Pending,
       title: "Volunteer at Local Shelter",
       description: "Spend some time volunteering at a local animal shelter on the weekend.",
-      completed: true,
+      selected: false,
       dateCreate: 1663582000,
     },
     {
@@ -157,7 +157,7 @@ export class SubjectManageTaskService extends TaskService {
       status: ETaskStatus.Pending,
       title: "Start a New Book",
       description: "Begin reading a new book from your favorite author.",
-      completed: false,
+      selected: false,
       dateCreate: 1663482000,
     },
     {
@@ -165,7 +165,7 @@ export class SubjectManageTaskService extends TaskService {
       status: ETaskStatus.Pending,
       title: "Fix Leaky Faucet",
       description: "Call a plumber to fix the leaky faucet in the kitchen.",
-      completed: false,
+      selected: false,
       dateCreate: 1663382000,
     },
     {
@@ -173,7 +173,7 @@ export class SubjectManageTaskService extends TaskService {
       status: ETaskStatus.Pending,
       title: "Renew Gym Membership",
       description: "Make sure your gym membership is up to date for the next month.",
-      completed: true,
+      selected: false,
       dateCreate: 1663282000,
     },
     {
@@ -181,7 +181,7 @@ export class SubjectManageTaskService extends TaskService {
       status: ETaskStatus.Pending,
       title: "Update Resume",
       description: "Update your resume to include your latest work experiences and skills.",
-      completed: false,
+      selected: false,
       dateCreate: 1663182000,
     },
     {
@@ -189,7 +189,7 @@ export class SubjectManageTaskService extends TaskService {
       status: ETaskStatus.Pending,
       title: "Bake a Cake",
       description: "Bake a homemade cake for a friend's birthday celebration.",
-      completed: false,
+      selected: false,
       dateCreate: 1663082000,
     },
     {
@@ -197,7 +197,7 @@ export class SubjectManageTaskService extends TaskService {
       status: ETaskStatus.Pending,
       title: "Visit the Art Museum",
       description: "Plan a visit to the local art museum to appreciate some fine art.",
-      completed: false,
+      selected: false,
       dateCreate: 1662982000,
     },
     {
@@ -205,7 +205,7 @@ export class SubjectManageTaskService extends TaskService {
       status: ETaskStatus.Pending,
       title: "Learn to Play Guitar",
       description: "Start taking guitar lessons to learn how to play your favorite songs.",
-      completed: false,
+      selected: false,
       dateCreate: 1662882000,
     },
   ]);
@@ -244,4 +244,20 @@ export class SubjectManageTaskService extends TaskService {
     return of(undefined);
   }
 
+  public deleteTasks(ids: string[]): Observable<void> {
+    const selectedSet: Set<string> = new Set<string>(ids);
+    const updatedTasks = this.mockTasksSubject.getValue().filter((item) => !selectedSet.has(item.id))
+    this.mockTasksSubject.next(updatedTasks);
+
+    return of(undefined);
+  }
+
+  public updateTasks(indexes: IDropIndexes) {
+    const arr = [...this.mockTasksSubject.getValue()];
+    const {prevInd, currInd} = indexes;
+    [{...arr[prevInd]}, {...arr[currInd]}] = [{...arr[currInd]}, {...arr[prevInd]}];
+    this.mockTasksSubject.next(arr);
+
+    return of(undefined);
+  }
 }

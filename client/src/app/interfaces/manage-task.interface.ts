@@ -8,6 +8,7 @@ export enum ETaskOperation {
 export interface ITaskItem {
   id: string,
   title: string;
+  status: ETaskStatus;
   description: string;
   completed: boolean;
   dateCreate: number;

@@ -4,6 +4,11 @@ import {HttpClient} from "@angular/common/http";
 import {ITaskItem} from "../interfaces/manage-task.interface";
 import {Utils} from "../utils/utils";
 
+export interface IDropIndexes {
+  prevInd: number;
+  currInd: number;
+}
+
 @Injectable()
 export abstract class TaskService {
 
@@ -15,6 +20,10 @@ export abstract class TaskService {
 
   abstract deleteTask(id: string): Observable<void>;
 
+  abstract deleteTasks(ids: string[]): Observable<void>;
+
+  abstract updateTasks(indexes: IDropIndexes): Observable<void>;
+
 }
 @Injectable()
 export class HttpManageTaskService extends TaskService {
@@ -23,6 +32,8 @@ export class HttpManageTaskService extends TaskService {
   private createTaskUrl = 'createTaskUrl';
   private editTaskUrl = 'editTaskUrl';
   private deleteTaskUrl = 'deleteTaskUrl';
+  private deleteTasksUrl = 'deleteTasksUrl';
+  private updateTaskUrl = 'updateTaskUrl';
 
   constructor(private http: HttpClient) {
     super();
@@ -43,5 +54,13 @@ export class HttpManageTaskService extends TaskService {
 
   public deleteTask(id: string): Observable<void> {
     return this.http.delete<void>(this.deleteTaskUrl+`/${id}`);
+  }
+
+  public deleteTasks(ids: string[]): Observable<void> {
+    return this.http.delete<void>(this.deleteTasksUrl+`/${ids}`);
+  }
+
+  public updateTasks(indexes: IDropIndexes): Observable<void> { // TODO ????
+    return this.http.put<void>(this.updateTaskUrl, indexes);
   }
 }

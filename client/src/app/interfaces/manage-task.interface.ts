@@ -5,6 +5,11 @@ export enum ETaskOperation {
   Delete = 'update',
   Default = 'default',
 }
+export enum ETaskStatus {
+  Pending = 'pending',
+  Done = 'done',
+  OnWork = 'onwork',
+}
 export interface ITaskItem {
   id: string,
   title: string;

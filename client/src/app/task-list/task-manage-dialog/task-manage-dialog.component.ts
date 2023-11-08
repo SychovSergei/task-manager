@@ -15,7 +15,7 @@ interface IStatus {
 })
 export class TaskManageDialogComponent {
 
-  public taskFormData: ITaskItem = {id: '', status: ETaskStatus.Pending, title: '', description: '', completed: false, dateCreate: 0};
+  public taskFormData: ITaskItem = {id: '', status: ETaskStatus.Pending, title: '', description: '', selected: false, dateCreate: 0};
 
   result: ITaskOperationData = {
     data: this.taskFormData,
@@ -59,7 +59,7 @@ export class TaskManageDialogComponent {
           status: taskForm.form.controls['status'].value,
           title: taskForm.form.controls['title'].value,
           description: taskForm.form.controls['description'].value,
-          completed: this.taskFormData.completed,
+          selected: this.taskFormData.selected,
           dateCreate: new Date().getTime()
         },
         operation: this.operation

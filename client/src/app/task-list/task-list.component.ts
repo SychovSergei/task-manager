@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
-import {ETaskOperation, ITaskOperationData, ITaskItem} from "../interfaces/manage-task.interface";
+import {ETaskOperation, ETaskStatus, ITaskItem, ITaskOperationData} from "../interfaces/manage-task.interface";
 import {MatDialog} from "@angular/material/dialog";
 import {TaskManageDialogComponent} from "./task-manage-dialog/task-manage-dialog.component";
 import {SubjectManageTaskService} from "../services/subject-manage-task.service";
@@ -19,9 +19,8 @@ import {CdkDragDrop} from "@angular/cdk/drag-drop";
 })
 export class TaskListComponent implements OnInit, AfterViewInit {
 
-  public displayedColumns: string[] = ['complete', 'title', 'description', 'dateCreate', 'action'];
-  private filterItemsList: string[] = ['title', 'description'];
-  // public dataSource: ITaskItem[] = [];
+  public displayedColumns: string[] = ['complete', 'status', 'title', 'description', 'dateCreate', 'action'];
+  private filterItemsList: string[] = ['status', 'title', 'description'];
   public dataSource: ITaskItem[] = [];
   public dataSourceFiltered!: MatTableDataSource<ITaskItem>;
   private searchValueSubject: BehaviorSubject<string> = new BehaviorSubject<string>('');
@@ -82,7 +81,7 @@ export class TaskListComponent implements OnInit, AfterViewInit {
     });
   }
 
-  private openCreateNewTaskDialog(operation: ETaskOperation = ETaskOperation.Create, data: ITaskItem | undefined = {id: '', title: '', description: '', completed: false, dateCreate: new Date().getTime()}) {
+  private openCreateNewTaskDialog(operation: ETaskOperation = ETaskOperation.Create, data: ITaskItem | undefined = {id: '', status: ETaskStatus.Pending, title: '', description: '', completed: false, dateCreate: new Date().getTime()}) {
     const dialogRef = this.dialog.open(
       TaskManageDialogComponent,
       {

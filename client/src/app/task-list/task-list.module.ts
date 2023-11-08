@@ -15,15 +15,18 @@ import {MatSortModule} from "@angular/material/sort";
 import {MatInputModule} from "@angular/material/input";
 import {MatPaginatorModule} from "@angular/material/paginator";
 import {DragDropModule} from "@angular/cdk/drag-drop";
+import {StatusColorDirectve} from "../directives/status-color.directve";
 
 
 
 @NgModule({
   declarations: [
-      TaskListComponent,
+    TaskListComponent,
+    StatusColorDirectve,
   ],
   exports: [
-    TaskListComponent
+    TaskListComponent,
+    StatusColorDirectve,
   ],
     imports: [
     CommonModule,

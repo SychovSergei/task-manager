@@ -1,7 +1,12 @@
 import {Component, Inject} from '@angular/core';
 import {NgForm} from "@angular/forms";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import {ETaskOperation, ITaskOperationData, ITaskItem} from "../../interfaces/manage-task.interface";
+import {ETaskOperation, ITaskOperationData, ITaskItem, ETaskStatus} from "../../interfaces/manage-task.interface";
+
+interface IStatus {
+  value: string;
+  viewValue: string;
+}
 
 @Component({
   selector: 'app-task-manage-dialog',
@@ -10,7 +15,7 @@ import {ETaskOperation, ITaskOperationData, ITaskItem} from "../../interfaces/ma
 })
 export class TaskManageDialogComponent {
 
-  public taskFormData: ITaskItem = {id: '', title: '', description: '', completed: false, dateCreate: 0};
+  public taskFormData: ITaskItem = {id: '', status: ETaskStatus.Pending, title: '', description: '', completed: false, dateCreate: 0};
 
   result: ITaskOperationData = {
     data: this.taskFormData,
@@ -26,6 +31,12 @@ export class TaskManageDialogComponent {
   }
 
   isSubmit: boolean = false;
+
+  statuses: IStatus[] = [
+    {value: ETaskStatus.Pending, viewValue: 'Pending'},
+    {value: ETaskStatus.OnWork, viewValue: 'OnWork'},
+    {value: ETaskStatus.Done, viewValue: 'Done'},
+  ];
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: ITaskOperationData,
               private dialogRef: MatDialogRef<TaskManageDialogComponent>
@@ -44,8 +55,8 @@ export class TaskManageDialogComponent {
     if (taskForm.valid) {
       this.result = {
         data: {
-          // id: this.operation === ETaskOperation.Create ? Utils.generateId() : this.taskFormData.id,
           id: this.taskFormData.id,
+          status: taskForm.form.controls['status'].value,
           title: taskForm.form.controls['title'].value,
           description: taskForm.form.controls['description'].value,
           completed: this.taskFormData.completed,

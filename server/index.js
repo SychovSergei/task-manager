@@ -15,8 +15,10 @@ app.use(cors());
 app.use(express.json());
 // app.use("/api", router);
 app.get("/", (req, res, next) => {
-  res.send('"Server SP works..."');
-  next();
+  res.write('Text from server');
+  res.end();
+  // res.send('"Server SP works..."');
+  // next();
 });
 
 const start = () => {

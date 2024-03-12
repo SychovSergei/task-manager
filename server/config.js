@@ -15,7 +15,7 @@ const {
   STORAGE_BUCKET,
   MESSAGING_SENDER_ID,
   APP_ID,
-  DATABASE_PASSWORD
+  DATABASE_SOURCE,
 } = process.env;
 
 assert(PORT, "Port is required");
@@ -26,7 +26,7 @@ module.exports = {
   host: HOST,
   hostUrl: HOST_URL,
   mongoDbConfig: {
-    dbPassword: DATABASE_PASSWORD
+    dbSource: DATABASE_SOURCE,
   },
   firebaseConfig: {
     apiKey: API_KEY,

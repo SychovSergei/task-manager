@@ -3,9 +3,7 @@ import config from "../config";
 import mongoose from 'mongoose';
 
 import app from "./bin/app";
-import router from "./routes";
 
-app.use("/api", router);
 
 const dbConnect = async () => {
   try {

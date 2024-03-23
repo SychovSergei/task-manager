@@ -17,6 +17,7 @@ import { DashboardModule } from './common/dashboard/dashboard.module';
 import { TaskListModule } from "./task-list/task-list.module";
 
 import { BreakpointService } from './services/breakpoint.service';
+import { InterceptorsModule } from "./interceptors/interceptors.module";
 
 @NgModule({
   declarations: [
@@ -30,6 +31,8 @@ import { BreakpointService } from './services/breakpoint.service';
     MatSidenavModule,
     MatButtonModule,
     MatListModule,
+
+    InterceptorsModule,
 
     TaskListModule,
 

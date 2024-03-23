@@ -1,4 +1,7 @@
 import { NgModule } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { CommonModule } from '@angular/common';
+
 import { AuthComponent } from './auth.component';
 import { LoginModule } from './login/login.module';
 import { RegisterModule } from './register/register.module';

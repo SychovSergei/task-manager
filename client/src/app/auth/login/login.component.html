@@ -1,1 +1,79 @@
-<p>login works!</p>
+<div class="col-12 col-md-8 col-lg-6 mx-auto">
+  <mat-card>
+    <mat-card-content>
+
+      <h1>Login</h1>
+
+      <form [formGroup]="loginForm" (ngSubmit)="login()">
+
+        <div class="row">
+          <mat-form-field appearance="fill">
+            <mat-label>Email address:</mat-label>
+            <input matInput placeholder="pat@example.com" formControlName="email">
+            <mat-error *ngIf="loginForm.controls['email'].hasError('email') && !loginForm.controls['email'].hasError('required')">
+              Please enter a valid email address
+            </mat-error>
+            <mat-error *ngIf="loginForm.controls['email'].hasError('required')">
+              Email is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="row">
+          <mat-form-field appearance="fill">
+            <mat-label>Password</mat-label>
+            <input matInput type="password" formControlName="password">
+            <mat-error *ngIf="loginForm.get('email')?.invalid">{{ "getErrorMessage()" }}</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="row">
+          <section>
+            <mat-checkbox color="primary" formControlName="remember">
+              Remember me
+            </mat-checkbox>
+          </section>
+        </div>
+
+        <div class="row mt-3">
+          <section>
+            <button mat-raised-button color="primary"
+                    type="submit"
+                    [disabled]="loginForm.invalid"
+                    class="w-100"
+                    >Login</button>
+          </section>
+        </div>
+
+                <div class="row mt-3">
+                  <section>
+                    <pre>{{ this.loginForm.valid }}</pre>
+                    <pre>{{ this.loginForm.getRawValue() | json }}</pre>
+                  </section>
+                </div>
+
+      </form>
+
+      <section class="mt-4">
+        <div class="links">
+          <p>or enter with: </p>
+          <div class="social">
+            <a routerLink="/">
+              <mat-icon>face</mat-icon>
+            </a>
+            <a routerLink="/">
+              <mat-icon>face</mat-icon>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section class="mt-4">
+        <div class="another-links">
+          <p>Don't have an account? <a routerLink="/auth/register">Register</a></p>
+        </div>
+      </section>
+
+    </mat-card-content>
+  </mat-card>
+</div>

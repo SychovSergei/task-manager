@@ -72,8 +72,16 @@ class AuthController {
     }
   }
 
-  login(req: Request, res: Response) {
-    res.status(200).json({name: "Serg"});
+  async getUsers (req: Request, res: Response, next: NextFunction) {
+    try {
+      const users = await UserModel.find({});
+      if (!users) {
+        UserError.NotFound();
+      }
+      res.status(200).json(users);
+    } catch (e) {
+      next(e);
+    }
   }
 
 }

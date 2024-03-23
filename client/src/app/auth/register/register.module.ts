@@ -1,7 +1,15 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RegisterComponent } from './register.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { RouterLink } from "@angular/router";
 
+import { MatInputModule } from '@angular/material/input';
+import { MatCardModule } from '@angular/material/card';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from "@angular/material/icon";
+
+import { RegisterComponent } from "./register.component";
 
 
 @NgModule({
@@ -10,6 +18,14 @@ import { RegisterComponent } from './register.component';
   ],
   imports: [
     CommonModule,
+    ReactiveFormsModule,
+    RouterLink,
+
+    MatInputModule,
+    MatCardModule,
+    MatCheckboxModule,
+    MatButtonModule,
+    MatIconModule,
   ],
   exports: [
     RegisterComponent,

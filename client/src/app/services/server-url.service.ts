@@ -7,7 +7,7 @@ import { environment } from "../../environment";
 export class ServerUrlService {
 
   getServerUrl(): string {
-    return environment.production ? environment.apiUrl : "";
+    return environment.apiUrl;
   }
 
 }

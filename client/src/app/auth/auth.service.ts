@@ -6,8 +6,6 @@ import { ServerUrlService } from "../services/server-url.service";
 @Injectable()
 export class AuthService {
 
-  private registrationUrl: string = "/api/auth/registration";
-  private loginUrl: string = "/api/auth/login";
   private registrationUrl: string = this.serverUrl.getServerUrl() + "/auth/registration";
   private loginUrl: string = this.serverUrl.getServerUrl() + "/auth/login";
 
